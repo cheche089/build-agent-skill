@@ -1,41 +1,54 @@
 ---
 name: build-your-own-x
 description: >-
-  Master programming by recreating your favorite technologies from scratch.
-  A comprehensive skill based on the 500k+ star GitHub repo that curates
-  step-by-step tutorials for building 3D Renderers, Databases, Git, OS,
-  Compilers, Web Servers, and 25+ other technologies from zero.
+  Guide users through building real technologies from scratch using curated
+  tutorials. Activate when user wants to rebuild existing tools or learn
+  internals by doing.
 ---
 
-# Build Your Own X — AI Coding Agent Skill
-
-This skill enables AI coding agents (Codex, Claude Code, Cursor, etc.) to guide
-users through building real technologies from scratch, using the curated
-tutorial collection from codecrafters-io/build-your-own-x.
+# Build Your Own X — Agent Skill
 
 > "What I cannot create, I do not understand" — Richard Feynman
 
-## Installation
+## 激活条件
 
-This SKILL.md file is the **only file you need** to give your agent this skill.
+当用户表达以下意图时激活本技能：
+- "我想从零写一个…" / "I want to build … from scratch"
+- "XX 内部是怎么工作的？" / "How does … work internally?"
+- "教我写一个…" / "Teach me to build …"
+- "实现一个迷你版的…" / "Implement a minimal …"
+- "自己动手造一个…" / "Build my own …"
 
-**Codex:** Place in `~/.codex/skills/build-your-own-x/SKILL.md`
-**Claude Code:** Add content to `CLAUDE.md`
-**Cursor:** Add to `.cursorrules` or `.cursor/rules/`
-**GitHub Copilot:** Add to `.github/copilot-instructions.md`
+## 核心规则
 
-## When to Use This Skill
+### 规则 1：先分类，再匹配
 
-Invoke this skill when a user wants to:
-- Learn a technology deeply by rebuilding it
-- Understand internals of tools they use daily
-- Get a structured, tutorial-based learning path
-- Practice systems programming, compilers, databases, or graphics
-- Work on a hands-on project that teaches fundamentals
+用户提出需求后，必须先将它映射到以下 30+ 分类之一，再在对应分类中选择教程。不要跳过分类直接推荐。
 
-## Categories Overview
+### 规则 2：写代码，不只是给链接
 
-There are 30+ technology categories with 250+ curated tutorials.
+- 参照选定教程，**实际写出可运行的代码**
+- 把教程拆成 3-5 个阶段，每阶段写一部分
+- 每完成一个阶段让用户运行验证
+- 不要只丢一个"参考这个链接"就结束
+
+### 规则 3：按用户水平调整
+
+| 用户说 | 推荐方向 |
+|--------|----------|
+| "我是新手" | 选教程中最简单、步骤最详细的 |
+| "我有经验" | 可以跳过基础部分，直接深入核心 |
+| "我想理解原理" | 注重解释概念，多问"为什么" |
+| "我想快速做一个" | 偏实用，选最短路径 |
+
+### 规则 4：必须验证理解
+
+每完成一个阶段，问用户一个问题确认理解：
+- "你知道这里为什么用 B+Tree 而不是数组吗？"
+- "如果不加这一行会发生什么？"
+- "试试改成 XX 看看效果？"
+
+## 教程分类
 
 ### Core Systems
 - 3D Renderer — C++, C#, Python, JavaScript, Java
@@ -79,74 +92,64 @@ There are 30+ technology categories with 250+ curated tutorials.
 - Search Engine — Python, CSS
 - Distributed Systems — Java
 
-## Agent Workflow
+## 教程选择对照表
 
-### Step 1: Identify the Category
-Map the user's request to a category. Examples:
-- "I want to build Redis" -> Database
-- "How does Git work?" -> Git
-- "Teach me compilers" -> Programming Language
-- "Make a game like Minecraft" -> Voxel Engine
+| 用户需求 | 分类 | 推荐教程 | 推荐语言 |
+|----------|------|----------|----------|
+| "写 Redis" | Database | Build Your Own Redis from Scratch | C++ / Go |
+| "写编译器" | Programming Language | Crafting Interpreters | Java |
+| "迷你 Git" | Git | pygit / wyag | Python |
+| "做游戏" | Game | Handmade Hero / Tetris | C / C++ |
+| "做 Docker" | Docker | Container in 100 lines | Go |
+| "写 Web 服务器" | Web Server | Build Your Own Web Server | Node.js / Python |
+| "写 Shell" | Shell | Write a Shell in C | C |
+| "神经网络" | Neural Network | Neural Network from Scratch | Python |
+| "做操作系统" | Operating System | Writing an OS in Rust | Rust |
+| "做区块链" | Blockchain | Building Blockchain in Go | Go |
 
-### Step 2: Choose a Tutorial
-For the matched category, select based on:
-- Preferred language — e.g., Python option for Python users
-- Experience level — beginner vs advanced
-- Goal — theory vs practical implementation
+## 工作流
 
-### Tutorial Selection Examples
+### Step 1: 识别分类
+将用户需求映射到上方分类。
 
-| User Says | Category | Best Tutorial | Language |
-|-----------|----------|---------------|----------|
-| "Build Redis" | Database | Build Your Own Redis from Scratch | C++ / Go |
-| "Write a compiler" | Programming Language | Crafting Interpreters | Java |
-| "Build git" | Git | pygit or wyag | Python |
-| "Make a game" | Game | Handmade Hero / Tetris tutorial | C / C++ |
-| "Build Docker" | Docker | Container in 100 lines of Go | Go |
-| "Make a web server" | Web Server | Build Your Own Web Server | Node.js / Python |
-| "Write a shell" | Shell | Write a Shell in C | C |
-| "Neural network" | Neural Network | Neural Network from Scratch | Python |
+### Step 2: 选择教程
+根据用户的语言偏好和经验水平，从对照表中选择教程。
 
-### Step 3: Guide Through the Build
-- Break the tutorial into manageable stages
-- Help write code, not just read
-- Explain concepts as they arise
-- Debug and test each stage
-- Encourage running code early and often
+### Step 3: 分阶段引导
+将教程拆成 3-5 个可运行的小阶段：
+- 阶段 1：最小可运行版本
+- 阶段 2：核心功能
+- 阶段 3：完善和优化
+- 阶段 4（可选）：扩展功能
 
-### Step 4: Verify Understanding
-- Ask conceptual questions at each milestone
-- Suggest modifications
-- Compare with the real tool's behavior
+每阶段：写代码 → 解释 → 让用户运行 → 确认理解
 
-## How to Test
+### Step 4: 验证
+- 提 1-2 个概念性问题
+- 建议一个修改方向
+- 对比真实工具的类似行为
 
-### Test 1: Compiler Building
-Prompt: "I want to learn how compilers work by building one from scratch."
-Expected: Agent identifies Programming Language category, selects Crafting
-Interpreters or Build Your Own Lisp, guides step by step.
+## 高风险操作规则
 
-### Test 2: Git Internals
-Prompt: "How does git store my files internally? Show me by building a minimal git."
-Expected: Agent references pygit or wyag tutorials, explains blob/tree/commit,
-implements a minimal version.
+本技能涉及系统编程（文件系统、网络、进程等），必须注意：
 
-### Test 3: Category Discovery
-Prompt: "What can I build today?"
-Expected: Agent lists categories and asks about interests/language.
+- 涉及 `rm -rf`、`git reset --hard`、格式化操作 → **先确认**
+- 涉及端口监听、网络抓包 → **告知用户**
+- 涉及修改系统配置 → **先确认**
+- 涉及安装新依赖 → **说明原因和替代方案**
 
-## Compatibility
+## 测试用例
 
-| Agent | Status | Notes |
-|-------|--------|-------|
-| Codex | Full | SKILL.md format natively supported |
-| Claude Code | Full | Can follow workflow; manual SKILL.md loading |
-| Cursor | Partial | SKILL.md can be placed in .cursorrules |
-| GitHub Copilot Chat | Partial | Works as reference, no native skill loading |
-| Windsurf | Partial | Can ingest references |
+用户可以用以下指令验证本技能已正确加载：
 
-## References
-See references/ directory for full categorized listings.
+### 测试 1
+> "我想从零学编译器"
+期望：识别 Programming Language → 推荐 Crafting Interpreters → 开始引导
 
-## Contributing
-Original repository: https://github.com/codecrafters-io/build-your-own-x
+### 测试 2
+> "Git 内部怎么存文件的？做一个迷你 Git"
+期望：识别 Git → 参考 wyag → 写代码实现 blob/tree/commit
+
+### 测试 3
+> "有哪些东西可以自己造？"
+期望：列出分类 → 询问用户的语言和兴趣
