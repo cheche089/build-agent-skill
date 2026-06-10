@@ -1,4 +1,4 @@
-﻿---
+---
 name: build-your-own-x
 description: >-
   Master programming by recreating your favorite technologies from scratch.
@@ -14,6 +14,15 @@ users through building real technologies from scratch, using the curated
 tutorial collection from codecrafters-io/build-your-own-x.
 
 > "What I cannot create, I do not understand" — Richard Feynman
+
+## Installation
+
+This SKILL.md file is the **only file you need** to give your agent this skill.
+
+**Codex:** Place in `~/.codex/skills/build-your-own-x/SKILL.md`
+**Claude Code:** Add content to `CLAUDE.md`
+**Cursor:** Add to `.cursorrules` or `.cursor/rules/`
+**GitHub Copilot:** Add to `.github/copilot-instructions.md`
 
 ## When to Use This Skill
 
@@ -84,6 +93,19 @@ For the matched category, select based on:
 - Preferred language — e.g., Python option for Python users
 - Experience level — beginner vs advanced
 - Goal — theory vs practical implementation
+
+### Tutorial Selection Examples
+
+| User Says | Category | Best Tutorial | Language |
+|-----------|----------|---------------|----------|
+| "Build Redis" | Database | Build Your Own Redis from Scratch | C++ / Go |
+| "Write a compiler" | Programming Language | Crafting Interpreters | Java |
+| "Build git" | Git | pygit or wyag | Python |
+| "Make a game" | Game | Handmade Hero / Tetris tutorial | C / C++ |
+| "Build Docker" | Docker | Container in 100 lines of Go | Go |
+| "Make a web server" | Web Server | Build Your Own Web Server | Node.js / Python |
+| "Write a shell" | Shell | Write a Shell in C | C |
+| "Neural network" | Neural Network | Neural Network from Scratch | Python |
 
 ### Step 3: Guide Through the Build
 - Break the tutorial into manageable stages
