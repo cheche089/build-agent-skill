@@ -1,54 +1,97 @@
 ---
 name: build-your-own-x
 description: >-
-  Guide users through building real technologies from scratch using curated
-  tutorials. Activate when user wants to rebuild existing tools or learn
-  internals by doing.
+  Guide users through building real technologies from scratch. Activates when
+  the user wants to rebuild existing tools, understand internals, or learn
+  by implementing from zero.
 ---
 
 # Build Your Own X — Agent Skill
 
 > "What I cannot create, I do not understand" — Richard Feynman
 
-## 激活条件
+## Activation
 
-当用户表达以下意图时激活本技能：
-- "我想从零写一个…" / "I want to build … from scratch"
-- "XX 内部是怎么工作的？" / "How does … work internally?"
-- "教我写一个…" / "Teach me to build …"
-- "实现一个迷你版的…" / "Implement a minimal …"
-- "自己动手造一个…" / "Build my own …"
+Activate this skill when the user says:
 
-## 核心规则
+- "I want to build … from scratch" / "Let me build my own …"
+- "How does … work internally?" / "What's under the hood of …?"
+- "Teach me to write a …" / "Show me how to implement a …"
+- "Make a minimal version of …" / "Clone … from scratch"
+- Any request to recreate an existing technology for learning
 
-### 规则 1：先分类，再匹配
+Do NOT activate for general programming questions, debugging, or feature
+implementation requests unless the user explicitly frames them as a
+"build from scratch" exercise.
 
-用户提出需求后，必须先将它映射到以下 30+ 分类之一，再在对应分类中选择教程。不要跳过分类直接推荐。
+## Core Rules
 
-### 规则 2：写代码，不只是给链接
+### Rule 1: Map to Category First
 
-- 参照选定教程，**实际写出可运行的代码**
-- 把教程拆成 3-5 个阶段，每阶段写一部分
-- 每完成一个阶段让用户运行验证
-- 不要只丢一个"参考这个链接"就结束
+Always map the user's request to one of the 30+ categories below before
+recommending a tutorial. Never jump straight to a link.
 
-### 规则 3：按用户水平调整
+Examples:
+- "Build Redis" → Database
+- "How does Git work?" → Git
+- "Write a compiler" → Programming Language
+- "Make Minecraft" → Voxel Engine or Game
 
-| 用户说 | 推荐方向 |
-|--------|----------|
-| "我是新手" | 选教程中最简单、步骤最详细的 |
-| "我有经验" | 可以跳过基础部分，直接深入核心 |
-| "我想理解原理" | 注重解释概念，多问"为什么" |
-| "我想快速做一个" | 偏实用，选最短路径 |
+### Rule 2: Write Code, Don't Just Link
 
-### 规则 4：必须验证理解
+- Follow the selected tutorial and write actual runnable code.
+- Break the tutorial into 3-5 small stages. Each stage must produce
+  something the user can run and see.
+- Never say "here's a link, go read it." Write the code with them.
 
-每完成一个阶段，问用户一个问题确认理解：
-- "你知道这里为什么用 B+Tree 而不是数组吗？"
-- "如果不加这一行会发生什么？"
-- "试试改成 XX 看看效果？"
+### Rule 3: Adapt to User Level
 
-## 教程分类
+| User Says | Response |
+|-----------|----------|
+| "I'm a beginner" | Pick the simplest tutorial; explain every concept |
+| "I have experience" | Skip fundamentals; go deeper on internals |
+| "I want to understand the theory" | Focus on why, not just how; ask conceptual questions |
+| "I just want something working fast" | Pick the shortest path; optimize for runnable output |
+
+### Rule 4: Verify After Each Stage
+
+After completing each stage, ask at least one verification question:
+
+- "Do you see why we use a hash index here instead of a B-Tree?"
+- "What happens if we remove this error check?"
+- "Try running it with this input — what do you expect?"
+
+## Workflow
+
+### Step 1: Identify
+Map the user's request to a category from the list below.
+
+### Step 2: Select
+Pick the best tutorial based on:
+- User's preferred language
+- Experience level
+- Goal (theory vs practice)
+
+Use the Selection Table below.
+
+### Step 3: Build in Stages
+Split the selected tutorial into stages:
+
+| Stage | Goal |
+|-------|------|
+| Stage 1 | Minimal runnable version — the simplest thing that works |
+| Stage 2 | Core functionality — the main feature |
+| Stage 3 | Polish — error handling, edge cases, performance |
+| Stage 4 (optional) | Extensions — user-requested additions |
+
+For each stage: write code → explain key concepts → let user run → verify.
+
+### Step 4: Wrap Up
+- Ask 1-2 conceptual questions
+- Suggest one modification the user can try on their own
+- Compare the implementation to the real tool's behavior
+
+## Tutorial Categories
 
 ### Core Systems
 - 3D Renderer — C++, C#, Python, JavaScript, Java
@@ -92,64 +135,80 @@ description: >-
 - Search Engine — Python, CSS
 - Distributed Systems — Java
 
-## 教程选择对照表
+## Selection Table
 
-| 用户需求 | 分类 | 推荐教程 | 推荐语言 |
-|----------|------|----------|----------|
-| "写 Redis" | Database | Build Your Own Redis from Scratch | C++ / Go |
-| "写编译器" | Programming Language | Crafting Interpreters | Java |
-| "迷你 Git" | Git | pygit / wyag | Python |
-| "做游戏" | Game | Handmade Hero / Tetris | C / C++ |
-| "做 Docker" | Docker | Container in 100 lines | Go |
-| "写 Web 服务器" | Web Server | Build Your Own Web Server | Node.js / Python |
-| "写 Shell" | Shell | Write a Shell in C | C |
-| "神经网络" | Neural Network | Neural Network from Scratch | Python |
-| "做操作系统" | Operating System | Writing an OS in Rust | Rust |
-| "做区块链" | Blockchain | Building Blockchain in Go | Go |
+| User Wants | Category | Best Tutorial | Language |
+|------------|----------|---------------|----------|
+| "Build Redis / a database" | Database | Build Your Own Redis from Scratch | C++ or Go |
+| "Write a compiler / language" | Programming Language | Crafting Interpreters | Java |
+| "Make a Git clone" | Git | pygit or Write Yourself a Git (wyag) | Python |
+| "Build a game" | Game | Handmade Hero or Tetris tutorial | C or C++ |
+| "Make Docker / containers" | Docker | Container in 100 lines of Go | Go |
+| "Write a web server" | Web Server | Build Your Own Web Server | Node.js or Python |
+| "Build a shell" | Shell | Write a Shell in C | C |
+| "Neural network / AI" | Neural Network | Neural Network from Scratch | Python |
+| "Make an OS" | Operating System | Writing an OS in Rust | Rust |
+| "Blockchain / crypto" | Blockchain | Building Blockchain in Go | Go |
+| "Build a text editor" | Text Editor | Build Your Own Text Editor (kilo) | C |
+| "3D renderer / graphics" | 3D Renderer | Ray Tracing in One Weekend | C++ |
+| "Emulator / VM" | Emulator / VM | Write Your Own Virtual Machine (LC3) | C |
+| "Web browser" | Web Browser | Browser Engineering | Python |
+| "Search engine" | Search Engine | Building a Search Engine | Python |
 
-## 工作流
+## Category Discovery
 
-### Step 1: 识别分类
-将用户需求映射到上方分类。
+When the user asks "What can I build?" or doesn't know what to choose:
 
-### Step 2: 选择教程
-根据用户的语言偏好和经验水平，从对照表中选择教程。
+1. List 5-8 major categories (Database, Compiler, Git, Game, OS, Shell, Web Server)
+2. Ask: "What language do you prefer?" and "What's your experience level?"
+3. Recommend the best match from the Selection Table
 
-### Step 3: 分阶段引导
-将教程拆成 3-5 个可运行的小阶段：
-- 阶段 1：最小可运行版本
-- 阶段 2：核心功能
-- 阶段 3：完善和优化
-- 阶段 4（可选）：扩展功能
+## High-Risk Operation Rules
 
-每阶段：写代码 → 解释 → 让用户运行 → 确认理解
+Building from scratch may involve system-level code. Follow these rules:
 
-### Step 4: 验证
-- 提 1-2 个概念性问题
-- 建议一个修改方向
-- 对比真实工具的类似行为
+- File system manipulation (`rm`, `dd`, `mkfs`) → confirm before executing
+- Network operations (binding ports, raw sockets) → inform the user first
+- Installing dependencies → explain why and list alternatives
+- Running untrusted code or scripts → always review first
+- Never run `git reset --hard`, `git clean -fd`, or similar destructive
+  commands unless the user explicitly requests it
 
-## 高风险操作规则
+## Verification Rules
 
-本技能涉及系统编程（文件系统、网络、进程等），必须注意：
+After each build stage, verify:
 
-- 涉及 `rm -rf`、`git reset --hard`、格式化操作 → **先确认**
-- 涉及端口监听、网络抓包 → **告知用户**
-- 涉及修改系统配置 → **先确认**
-- 涉及安装新依赖 → **说明原因和替代方案**
+- Does the code compile/run without errors?
+- Does the output match the expected behavior?
+- Does the user understand the key concept of this stage?
 
-## 测试用例
+Minimum verification:
+- Run the code once after each stage
+- Ask one conceptual question
+- Confirm the user is ready to proceed
 
-用户可以用以下指令验证本技能已正确加载：
+## Testing
 
-### 测试 1
-> "我想从零学编译器"
-期望：识别 Programming Language → 推荐 Crafting Interpreters → 开始引导
+The user can verify this skill is loaded with these prompts:
 
-### 测试 2
-> "Git 内部怎么存文件的？做一个迷你 Git"
-期望：识别 Git → 参考 wyag → 写代码实现 blob/tree/commit
+**Test 1 — Compiler**
+> "I want to learn how compilers work by building one from scratch."
+Expected: Identify Programming Language → Crafting Interpreters → guide
 
-### 测试 3
-> "有哪些东西可以自己造？"
-期望：列出分类 → 询问用户的语言和兴趣
+**Test 2 — Git Internals**
+> "How does git store files internally? Show me by building minimal git."
+Expected: Identify Git → wyag → implement blob/tree/commit
+
+**Test 3 — Discovery**
+> "What cool things can I build from scratch?"
+Expected: List categories → ask language/level → recommend
+
+## References
+
+Full tutorial listings: `references/category-index.md`
+Tutorials by language: `references/language-index.md`
+Original URLs: `references/tutorial-links.md`
+
+## Upstream
+
+Original repository: https://github.com/codecrafters-io/build-your-own-x
